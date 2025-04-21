@@ -6,12 +6,10 @@ class ObjectPool
 {
 private:
 	static const size_t memoryMax = 128 * 1024;
-	std::mutex _mtx;
 public:
 
 	T* New()
 	{
-		std::lock_guard<std::mutex> lock(_mtx);
 		T* res = nullptr;
 		//优先使用被释放的内存
 		if (_freelist)

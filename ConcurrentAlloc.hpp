@@ -21,6 +21,8 @@ void* ConcurrentAlloc(size_t size)
 	{
 		if (nullptr == pTLSThreadCache)
 		{
+			static std::mutex _mtx;
+			std::lock_guard<std::mutex> lock(_mtx);
 
 			static ObjectPool<ThreadCache> tcPool;
 			//pTLSThreadCache = new ThreadCache;
